@@ -48,18 +48,23 @@ Edit [`src/config.js`](./src/config.js):
 | `adsenseSlot`   | The slot ID of a vertical *Display ad* unit you create in AdSense                  |
 | `visitorMapSrc` | The `src` URL of the embed script from mapmyvisitors.com or clustrmaps.com         |
 
-Also put the publisher ID (without `ca-`) into [`public/ads.txt`](./public/ads.txt).
 Until these are filled in, the page shows neutral placeholders in both spots.
 
-> **AdSense note:** Google must approve the site at the domain where it is
-> actually served — register `www.oursharedcode.com` in AdSense, put the
-> publisher ID in `ads.txt` at the *root site* (oursharedcode.github.io repo)
-> as well, then fill in `src/config.js` here.
+> **`ads.txt` does not belong in this repo.** Google reads `ads.txt` only from
+> the domain root — `www.oursharedcode.com/ads.txt` — and ignores any copy at a
+> subpath, so a file here would never be read. It belongs in the root site repo
+> (`oursharedcode.github.io`), where one file covers every page on the domain.
+>
+> **AdSense note:** Google approves the domain, not the page. Register
+> `www.oursharedcode.com`, then fill in `src/config.js` here. Approval covers
+> the whole domain, but ads appear only on pages carrying the ad code — see
+> [`docs/adsense-snippet.md`](https://github.com/oursharedcode/oursharedcode.github.io/blob/main/docs/adsense-snippet.md)
+> in the root repo.
 >
 > **Visitor map note:** register the page URL
-> `https://www.oursharedcode.com/promengi-simple/` with the widget provider
-> (mapmyvisitors.com or clustrmaps.com); the free widget counts and plots
-> visitors by location on a small world map.
+> `https://www.oursharedcode.com/prompt-engineering-studio/` with the widget
+> provider (mapmyvisitors.com or clustrmaps.com); the free widget counts and
+> plots visitors by location on a small world map.
 
 ## Deployment
 
