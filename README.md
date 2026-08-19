@@ -6,7 +6,9 @@ Format, …). Pure static single-page React app — no backend, no accounts.
 Everything the user writes stays in their browser (`localStorage`) or on their
 own disk.
 
-Live page: <https://www.oursharedcode.com/prompt-engineering-studio>
+Live page: <https://www.oursharedcode.com/promengi-simple/>
+(also reachable as <https://www.oursharedcode.com/prompt-engineering-studio> —
+see the deployment section)
 
 See [REQUIREMENTS.md](./REQUIREMENTS.md) for the full requirement set.
 
@@ -49,14 +51,15 @@ Edit [`src/config.js`](./src/config.js):
 Also put the publisher ID (without `ca-`) into [`public/ads.txt`](./public/ads.txt).
 Until these are filled in, the page shows neutral placeholders in both spots.
 
-> **AdSense note:** Google must approve the site at the URL where it is
-> actually served (www.oursharedcode.com). Apply after the Cloudflare route
-> below is live, and verify the site in AdSense with the same path.
+> **AdSense note:** Google must approve the site at the domain where it is
+> actually served — register `www.oursharedcode.com` in AdSense, put the
+> publisher ID in `ads.txt` at the *root site* (oursharedcode.github.io repo)
+> as well, then fill in `src/config.js` here.
 >
 > **Visitor map note:** register the page URL
-> `https://www.oursharedcode.com/prompt-engineering-studio` with the widget
-> provider; the free widget counts and plots visitors by location on a small
-> world map.
+> `https://www.oursharedcode.com/promengi-simple/` with the widget provider
+> (mapmyvisitors.com or clustrmaps.com); the free widget counts and plots
+> visitors by location on a small world map.
 
 ## Deployment
 
@@ -70,17 +73,37 @@ One-time setup: repo **Settings → Pages → Source: GitHub Actions**.
 
 The site is then live at `https://oursharedcode.github.io/promengi-simple/`.
 
-### 2. Cloudflare route → www.oursharedcode.com/prompt-engineering-studio
+### 2. Custom domain path
 
-The app is built with relative asset URLs, so it can be proxied under any
-path. With the `oursharedcode.com` zone on Cloudflare, deploy
-[`deploy/cloudflare-worker.js`](./deploy/cloudflare-worker.js) as a Worker and
-attach the route `www.oursharedcode.com/prompt-engineering-studio*`. The
-worker proxies requests to the GitHub Pages origin and sets sane cache
-headers. Full steps are in the comments at the top of that file.
+The `oursharedcode` org's root Pages site
+(`oursharedcode/oursharedcode.github.io`) already carries the verified custom
+domain `www.oursharedcode.com`, so every project page of the org is served
+under it automatically — this repo is live at
+**`https://www.oursharedcode.com/promengi-simple/`** with no extra
+configuration (GitHub Pages always serves a project site at its repo-name
+path).
 
-(Alternative: skip GitHub Pages and use **Cloudflare Pages** — connect the
-repo, build command `npm run build`, output `dist` — then proxy the same way.)
+To also answer at `/prompt-engineering-studio`, commit
+[`deploy/prompt-engineering-studio-redirect.html`](./deploy/prompt-engineering-studio-redirect.html)
+into the **root site repo** as `prompt-engineering-studio/index.html`:
+
+```bash
+git clone https://github.com/oursharedcode/oursharedcode.github.io.git
+mkdir oursharedcode.github.io/prompt-engineering-studio
+cp deploy/prompt-engineering-studio-redirect.html \
+   oursharedcode.github.io/prompt-engineering-studio/index.html
+cd oursharedcode.github.io && git add -A && git commit -m "Add /prompt-engineering-studio redirect" && git push
+```
+
+### 3. Cloudflare alternative (only if the domain moves to Cloudflare)
+
+If `oursharedcode.com` is ever proxied through Cloudflare, the app can instead
+be served *directly* at `/prompt-engineering-studio` by deploying
+[`deploy/cloudflare-worker.js`](./deploy/cloudflare-worker.js) as a Worker on
+the route `www.oursharedcode.com/prompt-engineering-studio*` (it proxies to
+the GitHub Pages origin; the relative asset URLs make this work without any
+HTML rewriting). Not needed with the current DNS setup, which points the
+domain straight at GitHub Pages.
 
 ## File formats
 
