@@ -1,0 +1,25 @@
+{
+  "name": "promengi-simple",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Prompt Engineering Studio — a drag-and-drop editor that builds reliable LLM system prompts from labelled blocks, with local file save/load for prompts and custom blocks.",
+  "homepage": "https://www.oursharedcode.com/prompt-engineering-studio",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oursharedcode/promengi-simple.git"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}
