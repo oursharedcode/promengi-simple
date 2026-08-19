@@ -93,8 +93,8 @@ content: everything the user writes stays in their browser or on their own disk.
   deployable to GitHub Pages or Cloudflare with no server code and no
   environment variables.
 - NFR-2 All asset URLs SHALL be relative (`vite base "./"`), so the identical
-  build works at `oursharedcode.github.io/promengi-simple/` and at
-  `www.oursharedcode.com/prompt-engineering-studio`.
+  build works at `oursharedcode.github.io/prompt-engineering-studio/` and at
+  `www.oursharedcode.com/prompt-engineering-studio/`.
 - NFR-3 Low maintenance: the page is rarely edited; the only routinely edited
   file is `src/config.js`. Dependencies are limited to React + Vite.
 - NFR-4 Three visual themes (black / white / grey) SHALL be switchable in-app.

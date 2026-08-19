@@ -1,12 +1,12 @@
 {
-  "name": "promengi-simple",
+  "name": "prompt-engineering-studio",
   "version": "1.0.0",
   "private": true,
   "description": "Prompt Engineering Studio — a drag-and-drop editor that builds reliable LLM system prompts from labelled blocks, with local file save/load for prompts and custom blocks.",
   "homepage": "https://www.oursharedcode.com/prompt-engineering-studio",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oursharedcode/promengi-simple.git"
+    "url": "https://github.com/oursharedcode/prompt-engineering-studio.git"
   },
   "type": "module",
   "scripts": {

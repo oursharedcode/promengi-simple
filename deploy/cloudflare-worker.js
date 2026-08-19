@@ -10,7 +10,7 @@
 //      GitHub Pages origin; because the app is built with relative asset
 //      URLs (vite `base: "./"`), no HTML rewriting is needed.
 
-const ORIGIN = "https://oursharedcode.github.io/promengi-simple";
+const ORIGIN = "https://oursharedcode.github.io/prompt-engineering-studio";
 const PREFIX = "/prompt-engineering-studio";
 
 export default {

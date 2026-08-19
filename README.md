@@ -1,4 +1,4 @@
-# Prompt Engineering Studio (promengi-simple)
+# Prompt Engineering Studio
 
 A free drag-and-drop studio for building reliable LLM **system prompts** from
 labelled blocks (Role, Context, Task, Constraints, Chain-of-Thought, Output
@@ -6,9 +6,7 @@ Format, …). Pure static single-page React app — no backend, no accounts.
 Everything the user writes stays in their browser (`localStorage`) or on their
 own disk.
 
-Live page: <https://www.oursharedcode.com/promengi-simple/>
-(also reachable as <https://www.oursharedcode.com/prompt-engineering-studio> —
-see the deployment section)
+Live page: <https://www.oursharedcode.com/prompt-engineering-studio/>
 
 See [REQUIREMENTS.md](./REQUIREMENTS.md) for the full requirement set.
 
@@ -44,7 +42,7 @@ Edit [`src/config.js`](./src/config.js):
 
 | Key             | What to put there                                                                 |
 | --------------- | --------------------------------------------------------------------------------- |
-| `adsenseClient` | Your AdSense publisher ID (`ca-pub-…`) once the site is approved at adsense.google.com |
+| `adsenseClient` | The AdSense publisher ID — `ca-pub-1213781225888339`                              |
 | `adsenseSlot`   | The slot ID of a vertical *Display ad* unit you create in AdSense                  |
 | `visitorMapSrc` | The `src` URL of the embed script from mapmyvisitors.com or clustrmaps.com         |
 
@@ -55,11 +53,14 @@ Until these are filled in, the page shows neutral placeholders in both spots.
 > subpath, so a file here would never be read. It belongs in the root site repo
 > (`oursharedcode.github.io`), where one file covers every page on the domain.
 >
-> **AdSense note:** Google approves the domain, not the page. Register
-> `www.oursharedcode.com`, then fill in `src/config.js` here. Approval covers
-> the whole domain, but ads appear only on pages carrying the ad code — see
+> **AdSense note:** Google approves the domain, not the page — and the site is
+> registered as `oursharedcode.com`, not `www.oursharedcode.com`, which AdSense
+> rejects as a subdomain. Approval covers the whole domain, but ads appear only
+> on pages carrying the ad code — see
 > [`docs/adsense-snippet.md`](https://github.com/oursharedcode/oursharedcode.github.io/blob/main/docs/adsense-snippet.md)
-> in the root repo.
+> in the root repo. Note the rail needs **both** `adsenseClient` and
+> `adsenseSlot` before it renders an ad; the slot ID comes from an ad unit
+> created in the dashboard once the site is approved.
 >
 > **Visitor map note:** register the page URL
 > `https://www.oursharedcode.com/prompt-engineering-studio/` with the widget
@@ -70,13 +71,14 @@ Until these are filled in, the page shows neutral placeholders in both spots.
 
 ### 1. GitHub Pages (build + hosting)
 
-Pushing to `main` on `github.com/oursharedcode/promengi-simple` runs
+Pushing to `main` on `github.com/oursharedcode/prompt-engineering-studio` runs
 [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml), which builds
 the site and publishes `dist/` to GitHub Pages.
 
 One-time setup: repo **Settings → Pages → Source: GitHub Actions**.
 
-The site is then live at `https://oursharedcode.github.io/promengi-simple/`.
+The site is then live at
+`https://oursharedcode.github.io/prompt-engineering-studio/`.
 
 ### 2. Custom domain path
 
@@ -84,21 +86,13 @@ The `oursharedcode` org's root Pages site
 (`oursharedcode/oursharedcode.github.io`) already carries the verified custom
 domain `www.oursharedcode.com`, so every project page of the org is served
 under it automatically — this repo is live at
-**`https://www.oursharedcode.com/promengi-simple/`** with no extra
-configuration (GitHub Pages always serves a project site at its repo-name
-path).
+**`https://www.oursharedcode.com/prompt-engineering-studio/`** with no extra
+configuration.
 
-To also answer at `/prompt-engineering-studio`, commit
-[`deploy/prompt-engineering-studio-redirect.html`](./deploy/prompt-engineering-studio-redirect.html)
-into the **root site repo** as `prompt-engineering-studio/index.html`:
-
-```bash
-git clone https://github.com/oursharedcode/oursharedcode.github.io.git
-mkdir oursharedcode.github.io/prompt-engineering-studio
-cp deploy/prompt-engineering-studio-redirect.html \
-   oursharedcode.github.io/prompt-engineering-studio/index.html
-cd oursharedcode.github.io && git add -A && git commit -m "Add /prompt-engineering-studio redirect" && git push
-```
+The path comes from the repository name and nothing else, because GitHub Pages
+always serves a project site at its repo-name path. Renaming the repo is
+therefore the whole mechanism for changing the URL: there is no redirect file
+and no route configuration to keep in sync.
 
 ### 3. Cloudflare alternative (only if the domain moves to Cloudflare)
 
